@@ -74,6 +74,7 @@ for a in $ARCHES; do
     [ ! -e CHANGELOG.md ] || cp CHANGELOG.md "$STAGE/$NAME/"
     cp out/"$a"/* out/common/* "$STAGE/$NAME/bin/"
     find "$STAGE/$NAME" -name '__pycache__' -prune -exec rm -rf {} +
+    rm -rf "$STAGE/$NAME/docs/screenshots"     # for the README on GitHub, not the speaker
     tar -C "$STAGE" --owner=0 --group=0 --sort=name --mtime='2026-01-01 00:00Z' \
         -czf "dist/$NAME.tar.gz" "$NAME"
 done

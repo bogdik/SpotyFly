@@ -38,6 +38,25 @@ monitor-server :28088 — веб-страница: что играет, очер
 - **Монитор** (`monitor-server`, порт 28088): обложка, прогресс, очередь, история,
   поиск с подсказками, чёрный список, настройки, редактор голосовых команд.
 
+<p align="center">
+  <img src="docs/screenshots/monitor-main.png" width="60%" alt="Монитор: что играет, состояние сервисов, история">
+</p>
+
+<details>
+<summary>Ещё скриншоты: голосовые запросы, настройки, редактор команд</summary>
+<table>
+<tr>
+<td width="50%" valign="top">
+  <img src="docs/screenshots/monitor-voice.png" alt="Голосовые запросы: что сказали, что ответила Алиса, что включилось">
+  <img src="docs/screenshots/monitor-commands.png" alt="Редактор голосовых команд">
+</td>
+<td width="50%" valign="top">
+  <img src="docs/screenshots/monitor-settings.png" alt="Настройки: ключи Spotify, прокси, вход в Spotify">
+</td>
+</tr>
+</table>
+</details>
+
 ## Что понадобится
 
 **На колонке:**
