@@ -1,0 +1,30 @@
+#!/bin/sh
+# Early-boot WebSocket endpoint for mediad's apiUrl (ws://127.0.0.1:9).
+# MUST run before S99quasar so mediad never hits ECONNREFUSED, never crash-loops,
+# and is never abandoned by quasar_launcher2.
+#
+# NOTE: the pure "fake" dead-end (quasar-ws-fake) does NOT keep mediad alive --
+# mediad needs a real Quasar session, so after the handshake it dies anyway.
+# We therefore run the transparent forwarding relay (:9 -> local Quasar 9875).
+# Music still never plays: the mediad playback pipeline in quasar.cfg is silenced.
+RELAY=/data/opt/spotify-connect/quasar-ws-relay
+PIDF=/run/quasar-ws-relay.pid
+alive() { [ -r "$PIDF" ] && kill -0 "$(cat "$PIDF" 2>/dev/null)" 2>/dev/null; }
+case "${1:-}" in
+  start)
+    [ -x "$RELAY" ] || exit 0
+    alive && exit 0
+    ( while :; do
+        if ! alive; then
+          "$RELAY" >/tmp/quasar-ws-relay.log 2>&1 &
+          echo $! >"$PIDF"
+        fi
+        sleep 5
+      done ) </dev/null >/dev/null 2>&1 &
+    ;;
+  stop)
+    alive && kill "$(cat "$PIDF" 2>/dev/null)" 2>/dev/null
+    rm -f "$PIDF"
+    ;;
+esac
+exit 0

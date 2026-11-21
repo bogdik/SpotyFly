@@ -1,0 +1,13 @@
+# build output
+out/
+dist/
+# installer backups: device secrets inside
+backups/
+# never commit anything from a real speaker
+*.pem
+*.key
+credentials.env
+oauth.env
+net.conf
+api-key
+quasar.cfg*

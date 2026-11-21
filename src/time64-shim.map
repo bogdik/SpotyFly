@@ -1,0 +1,8 @@
+/* Export ONLY the time wrappers, unversioned (so they interpose references to
+ * __clock_gettime64@GLIBC_2.34 etc.).  zig always links compiler-rt; without
+ * `local: *` it would export ~400 weak memcpy/sin/log/__aeabi_* symbols that
+ * would override glibc inside Soloist. */
+{
+  global: __clock_gettime64; __gettimeofday64; __time64;
+  local: *;
+};
